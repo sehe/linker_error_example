@@ -1,3 +1,4 @@
+#include "types.cpp"
 #include "example_def.hpp"
 #include "config.hpp"
 
