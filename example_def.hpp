@@ -14,7 +14,7 @@ const var_dec_type var_dec = "var_dec";
 auto const var_dec_def = x3::lexeme["var "]
                          > +x3::alnum
                          > ":"
-                         > local_type
+                         >> local_type //<- BREAKING CHANGE APPLIED
                          > ";";
 
 BOOST_SPIRIT_DEFINE(var_dec)
