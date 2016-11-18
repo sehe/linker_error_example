@@ -11,11 +11,7 @@ namespace { const auto& type = client::type(); }
 
 const var_dec_type var_dec = "var_dec";
 
-auto const var_dec_def = x3::lexeme["var "]
-                         > +x3::alnum
-                         > ":"
-                         > type //<- HERE WHEN I CHANGE > type to >> type to get linker error
-                         > ";";
+auto const var_dec_def = x3::lexeme["var "] > +x3::alnum >> (":" > type) > ";";
 
 BOOST_SPIRIT_DEFINE(var_dec)
 

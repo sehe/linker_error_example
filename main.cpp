@@ -1,5 +1,5 @@
 #include <iostream>
-#include "example_def.hpp"
+#include "example.hpp"
 
 template<typename Parser, typename Attribute>
 bool test(const std::string& str, Parser&& p, Attribute&& attr)
@@ -17,7 +17,12 @@ bool test(const std::string& str, Parser&& p, Attribute&& attr)
 int main()
 {
     client::ast::VariableDec attr;
+    std::string const input("var foo : foo<bar, baz<bahama>>");
 
-    std::cout << test("var foo : foo<bar, baz<bahama>>", client::var_dec() , attr);
-    return 0;
+    try {
+        std::cout << test(input, client::var_dec() , attr);
+    } catch(boost::spirit::x3::expectation_failure<std::string::const_iterator> const& e) {
+        std::cout << "Expected: " << e.which() << " at '" << std::string(e.where(), input.end()) << "'\n";
+        return 255;
+    }
 }
